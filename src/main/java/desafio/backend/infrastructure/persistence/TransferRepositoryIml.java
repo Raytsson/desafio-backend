@@ -15,4 +15,9 @@ public class TransferRepositoryIml implements TransferRepository {
     public Transfer findById(UUID id) {
         return null;
     }
+
+    @Override
+    public void update(Transfer transfer) {
+
+    }
 }
