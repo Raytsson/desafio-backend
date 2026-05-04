@@ -1,5 +1,6 @@
 package desafio.backend.domain.user;
 
+import desafio.backend.adapters.exception.TransferValidationForbidenException;
 import desafio.backend.domain.wallet.Wallet;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class User {
 
     public void transferValidation(){
         if (this.type == UserType.SHOPKEEPER) {
-            throw new IllegalArgumentException("Shopkeepers cannot be the origin of a transfer.");
+            throw new TransferValidationForbidenException("Shopkeepers cannot be the origin of a transfer.");
         }
     }
 }

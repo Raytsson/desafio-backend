@@ -5,7 +5,6 @@ import desafio.backend.domain.transfer.TransferRepository;
 import desafio.backend.domain.transfer.TransferStatus;
 import desafio.backend.domain.user.User;
 import desafio.backend.domain.user.UserRepository;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,7 +47,7 @@ public class TransferUseCase {
         payer.getWallet().debit(value);
         payee.getWallet().credit(value);
         transfer.setStatus(TransferStatus.COMPLETED);
-        transferRepository.update(transfer);
+        Transfer saved = transferRepository.save(transfer);
         try {
             notificationService.notify(payer);
             notificationService.notify(payee);
@@ -59,6 +58,6 @@ public class TransferUseCase {
         userRepository.save(payee);
         userRepository.save(payer);
 
-        return transfer;
+        return saved;
     }
 }

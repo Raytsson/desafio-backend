@@ -1,5 +1,6 @@
 package desafio.backend.domain.wallet;
 
+import desafio.backend.adapters.exception.HasEnoughBalanceException;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -14,7 +15,7 @@ public class Wallet {
 
     public void hasEnoughBalance(BigDecimal value) {
         if (this.balance.compareTo(value) < 0) {
-            throw new IllegalArgumentException("Insufficient funds.");
+            throw new HasEnoughBalanceException("Insufficient funds.");
         }
     }
 

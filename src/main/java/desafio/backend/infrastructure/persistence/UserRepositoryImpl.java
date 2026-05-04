@@ -1,5 +1,6 @@
 package desafio.backend.infrastructure.persistence;
 
+import desafio.backend.adapters.exception.UserNotFoundException;
 import desafio.backend.domain.user.User;
 import desafio.backend.domain.user.UserRepository;
 import desafio.backend.infrastructure.persistence.entities.UserEntity;
@@ -27,6 +28,6 @@ public class UserRepositoryImpl implements UserRepository {
     public User findById(UUID id) {
         return userJpaRepository.findById(id)
                 .map(UserMapper::toDomain)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 }
