@@ -19,6 +19,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Enumerated(EnumType.STRING)
     private UserType type;
     private String fullName;
     @Pattern(regexp = "\\d{11}|\\d{14}")
@@ -29,6 +30,6 @@ public class UserEntity {
     private String email;
     private String password;
 
-        @OneToOne
-        private WalletEntity wallet;
+    @OneToOne
+    private WalletEntity wallet;
 }

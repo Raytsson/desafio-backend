@@ -1,4 +1,4 @@
 CREATE TABLE wallets (
-    id CHAR(36) PRIMARY KEY,
+    id binary(16) PRIMARY KEY,
     balance DECIMAL(19,2) NOT NULL
 );

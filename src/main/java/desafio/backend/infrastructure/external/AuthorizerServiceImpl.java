@@ -3,11 +3,13 @@ package desafio.backend.infrastructure.external;
 import desafio.backend.application.AuthorizerService;
 import desafio.backend.domain.user.User;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.util.Map;
 
+@Service
 public class AuthorizerServiceImpl implements AuthorizerService {
 
     @Override

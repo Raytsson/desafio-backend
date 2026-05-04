@@ -8,6 +8,7 @@ import desafio.backend.domain.user.UserRepository;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ public class TransferUseCase {
     private final AuthorizerService authorizerService;
     private final NotificationService notificationService;
 
+    @Transactional
     public Transfer execute(UUID payerId, UUID payeeId, BigDecimal value) {
         User payer = userRepository.findById(payerId);
         User payee = userRepository.findById(payeeId);
