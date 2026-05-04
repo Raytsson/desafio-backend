@@ -5,12 +5,15 @@ import desafio.backend.domain.transfer.TransferRepository;
 import desafio.backend.domain.transfer.TransferStatus;
 import desafio.backend.domain.user.User;
 import desafio.backend.domain.user.UserRepository;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Service
 @RequiredArgsConstructor
 public class TransferUseCase {
 
@@ -19,7 +22,7 @@ public class TransferUseCase {
     private final AuthorizerService authorizerService;
     private final NotificationService notificationService;
 
-    public void execute(UUID payerId, UUID payeeId, BigDecimal value) {
+    public Transfer execute(UUID payerId, UUID payeeId, BigDecimal value) {
         User payer = userRepository.findById(payerId);
         User payee = userRepository.findById(payeeId);
 
@@ -53,5 +56,7 @@ public class TransferUseCase {
         }
         userRepository.save(payee);
         userRepository.save(payer);
+
+        return transfer;
     }
 }

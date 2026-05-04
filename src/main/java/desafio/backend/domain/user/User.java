@@ -1,11 +1,13 @@
 package desafio.backend.domain.user;
 
 import desafio.backend.domain.wallet.Wallet;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.UUID;
 
 @Getter
+@Builder
 public class User {
     private UUID id;
     private UserType type;

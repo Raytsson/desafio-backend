@@ -1,8 +1,13 @@
 package desafio.backend.domain.wallet;
 
+import lombok.Builder;
+import lombok.Getter;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@Getter
+@Builder
 public class Wallet {
     private UUID id;
     private BigDecimal balance;
@@ -12,10 +17,12 @@ public class Wallet {
             throw new IllegalArgumentException("Insufficient funds.");
         }
     }
+
     public void debit(BigDecimal value) {
         hasEnoughBalance(value);
         this.balance = this.balance.subtract(value);
     }
+
     public void credit(BigDecimal value) {
         this.balance = this.balance.add(value);
     }
