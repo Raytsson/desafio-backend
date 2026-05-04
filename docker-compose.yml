@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: picpay-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: picpay
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - picpay-data:/var/lib/mysql
+
+  app:
+    build: .
+    container_name: picpay-app
+    environment:
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      spring.datasource.url: jdbc:mysql://db:3306/picpay
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  picpay-data:
