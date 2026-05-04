@@ -27,6 +27,4 @@ public class Wallet {
     public void credit(BigDecimal value) {
         this.balance = this.balance.add(value);
     }
-
-
 }
