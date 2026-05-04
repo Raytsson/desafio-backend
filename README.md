@@ -10,9 +10,10 @@ API RESTful para simulação de transferências financeiras entre usuários e lo
 - **Spring Boot 3.5**
 - **Spring Data JPA + Hibernate**
 - **Flyway** — migrations versionadas
-- **MySQL / MariaDB**
+- **MySQL 8.0**
 - **Lombok**
 - **JUnit 5 + Mockito**
+- **Docker + Docker Compose**
 
 ---
 
@@ -42,10 +43,35 @@ src/
 ### Pré-requisitos
 
 - Java 21
-- MySQL ou MariaDB rodando localmente
 - Maven
+- Docker e Docker Compose
 
-### Configuração
+### Com Docker (recomendado)
+
+1. Clone o repositório
+
+2. Crie o arquivo `.env` baseado no exemplo:
+```bash
+cp .env.example .env
+```
+
+3. Preencha as variáveis no `.env`:
+```
+DB_USERNAME=picpay
+DB_PASSWORD=picpay
+MYSQL_ROOT_PASSWORD=root
+```
+
+4. Suba tudo com Docker Compose:
+```bash
+docker-compose up --build
+```
+
+A aplicação estará disponível em `http://localhost:8080`.
+
+O Flyway criará as tabelas automaticamente na primeira execução.
+
+### Sem Docker (local)
 
 1. Crie o banco de dados:
 ```sql
@@ -58,12 +84,10 @@ DB_USERNAME=seu_usuario
 DB_PASSWORD=sua_senha
 ```
 
-3. Clone o repositório e rode:
+3. Rode a aplicação:
 ```bash
 ./mvnw spring-boot:run
 ```
-
-O Flyway criará as tabelas automaticamente na primeira execução.
 
 ---
 
@@ -138,5 +162,7 @@ Cobertura de testes unitários no `TransferUseCase`:
 **Notificação assíncrona:** A falha no serviço de notificação não reverte a transferência — o dinheiro já foi movimentado com sucesso. O erro é logado mas não propaga.
 
 **`@Transactional` no caso de uso:** Garante que todas as operações de banco ocorram em uma única transação, revertendo automaticamente em caso de falha.
+
+**Variáveis de ambiente:** Credenciais nunca são commitadas no repositório. O arquivo `.env` é ignorado pelo Git e um `.env.example` é fornecido como referência.
 
 ---
